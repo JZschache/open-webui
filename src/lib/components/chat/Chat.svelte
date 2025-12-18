@@ -1390,7 +1390,7 @@
 	};
 
 	const chatCompletionEventHandler = async (data, message, chatId) => {
-		const { id, done, choices, content, sources, selected_model_id, error, usage } = data;
+		const { id, done, choices, content, sources, selected_model_id, error, usage, provider_specific_fields } = data;
 
 		if (error) {
 			await handleOpenAIError(error, message);
@@ -1481,6 +1481,10 @@
 
 		if (usage) {
 			message.usage = usage;
+		}
+
+		if (provider_specific_fields) {
+			message.provider_specific_fields = provider_specific_fields;
 		}
 
 		history.messages[message.id] = message;
